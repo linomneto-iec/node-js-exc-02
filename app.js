@@ -64,7 +64,7 @@ server.put('/products/:id', (req, res, next) => {
     return
   }
 
-  source.products.produtos[idx] = { id, ...payload }
+  source.products[idx] = { id, ...payload }
   res.status(200).json({ message: "Product updated successfully" })
 })
 
