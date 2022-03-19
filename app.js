@@ -2,9 +2,9 @@ const express = require('express')
 
 const hostname = '0.0.0.0';
 const port = process.env.PORT || 5000
-const app = express()
+const server = express()
 
-app.use(express.json());
+server.use(express.json());
 
 const source = {
   products: [
@@ -16,15 +16,15 @@ const source = {
   ]
 }
 
-app.get('', (req, res) => {
+server.get('', (req, res) => {
   res.send('Node.JS - Exercício 2 - Lino Antonio Melhado Neto')
 })
 
-app.get('/products', (req, res, next) => {
+server.get('/products', (req, res, next) => {
   res.status(200).json(source.products)
 })
 
-app.get('/products/:id', (req, res, next) => {
+server.get('/products/:id', (req, res, next) => {
   const id = parseInt(req.params.id);
   
   const product = source.products.find(p => p.id === id)
@@ -36,7 +36,7 @@ app.get('/products/:id', (req, res, next) => {
   res.status(200).json(product)
 })
 
-app.post('/products', (req, res, next) => {
+server.post('/products', (req, res, next) => {
   const payload = req.body
 
   if (!payload || !payload.description || !payload.value || !payload.brand) {
@@ -49,7 +49,7 @@ app.post('/products', (req, res, next) => {
   res.status(201).json({ message: "Product created successfully" })  
 })
 
-app.put('/products/:id', (req, res, next) => {
+server.put('/products/:id', (req, res, next) => {
   const id = parseInt(req.params.id);
   const payload = req.body
 
@@ -68,7 +68,7 @@ app.put('/products/:id', (req, res, next) => {
   res.status(200).json({ message: "Product updated successfully" })
 })
 
-app.delete('/products/:id', (req, res, next) => {
+server.delete('/products/:id', (req, res, next) => {
   const id = parseInt(req.params.id);
 
   let idx = source.products.findIndex(p => p.id === id)
